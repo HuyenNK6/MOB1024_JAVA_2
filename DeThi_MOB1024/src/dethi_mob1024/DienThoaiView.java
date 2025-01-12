@@ -45,27 +45,27 @@ public class DienThoaiView extends javax.swing.JFrame {
         return new DienThoai(txtTen.getText(), cbbHang.getSelectedIndex() == 0 ? 1 : 2, Float.parseFloat(txtGiaTien.getText()));
     }
 
-    void cbb() {
+    private void cbb() {
         _defaultComboBoxModel.addElement("SamSung");
         _defaultComboBoxModel.addElement("Iphone");
         cbbHang.setModel(_defaultComboBoxModel);
     }
 
-    void getObjectFirst() {
+    private void getObjectFirst() {
         _dienThoai = _lstDienThoai.get(0);
         txtTen.setText(_dienThoai.getTen());
         cbbHang.setSelectedItem(_dienThoai.getHang() == 1 ? "SamSung" : "Iphone");
         txtGiaTien.setText(String.valueOf(_dienThoai.getGia()));
     }
 
-    void fakeData() {
+    private void fakeData() {
         _lstDienThoai.add(new DienThoai("SamSung S8", 1, 30000));
         _lstDienThoai.add(new DienThoai("Iphone 11", 2, 50000));
         _lstDienThoai.add(new DienThoai("SamSung G7", 1, 70000));
         _lstDienThoai.add(new DienThoai("Iphone 14", 2, 90000));
     }
 
-    void loadTable() {
+    private void loadTable() {
         _defaultTableModel = (DefaultTableModel) tblBangDT.getModel();
         _defaultTableModel.setRowCount(0);
         for (DienThoai dienThoai : _lstDienThoai) {
@@ -226,22 +226,18 @@ public class DienThoaiView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        System.out.println("txtGiaTien.getText():"+txtGiaTien.getText().replace(".", ""));
+        System.out.println("txtGiaTien.getText():" + txtGiaTien.getText());
         if (txtGiaTien.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "Vui lòng không để null");
             return;
         }
-        Pattern pattern = Pattern.compile("\\d+");
-        Matcher matcher = pattern.matcher(txtGiaTien.getText().replace(".", ""));
-        if(!matcher.matches()){
-            JOptionPane.showMessageDialog(this, "Vui lòng phải điền số");
+        Pattern pattern = Pattern.compile("^\\d+(\\.\\d+)?$");
+        Matcher matcher = pattern.matcher(txtGiaTien.getText());
+        if (!matcher.matches()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng phải điền số >0");
             return;
         }
-        if(Integer.parseInt(txtGiaTien.getText().replace(".", "")) < 0){
-            JOptionPane.showMessageDialog(this, "Số phải >0");
-            return;
-        }
-        
+
         themDienThoai();
         loadTable();
     }//GEN-LAST:event_btnThemActionPerformed
@@ -255,8 +251,8 @@ public class DienThoaiView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtGiaTienActionPerformed
 
     private void tblBangDTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangDTMouseClicked
-        int index= tblBangDT.getSelectedRow();
-          _dienThoai = _lstDienThoai.get(index);
+        int index = tblBangDT.getSelectedRow();
+        _dienThoai = _lstDienThoai.get(index);
         txtTen.setText(_dienThoai.getTen());
         cbbHang.setSelectedItem(_dienThoai.getHang() == 1 ? "SamSung" : "Iphone");
         txtGiaTien.setText(String.valueOf(_dienThoai.getGia()));

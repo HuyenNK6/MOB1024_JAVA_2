@@ -17,14 +17,22 @@ public class FormDangKy extends javax.swing.JFrame {
     /**
      * Creates new form FormDangKy
      */
+    DefaultComboBoxModel _defaultComboBoxModel;
+
     public FormDangKy() {
         initComponents();
+        _defaultComboBoxModel = new DefaultComboBoxModel();
         setDataCombobox();
+
     }
 
     private void setDataCombobox() {
-        String[] data = {"Ngành UDPM", "Ngành PTPM", "Ngành XLDL"};
-        cboNganhHoc.setModel(new DefaultComboBoxModel<>(data));
+//        String[] data = {"Ngành UDPM", "Ngành PTPM", "Ngành XLDL"};
+//        cboNganhHoc.setModel(new DefaultComboBoxModel<>(data));
+        _defaultComboBoxModel.addElement("Ngành UDPM");
+        _defaultComboBoxModel.addElement("Ngành PTPM");
+        _defaultComboBoxModel.addElement("Ngành XLDL");
+        cboNganhHoc.setModel(_defaultComboBoxModel);
     }
 
     /**
@@ -215,17 +223,17 @@ public class FormDangKy extends javax.swing.JFrame {
         if (chkMon3.isSelected()) {
             lstMonHoc.add(chkMon3.getText());
         }
-        int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn đăng ký không?", "Xác nhận",JOptionPane.YES_NO_CANCEL_OPTION);
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn đăng ký không?", "Xác nhận", JOptionPane.YES_NO_CANCEL_OPTION);
         if (JOptionPane.YES_OPTION == choice) {
             JOptionPane.showMessageDialog(this, "Đăng ký thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            System.out.println("Họ và tên: "+ hoVaTen);
-            System.out.println("Ngày sinh: "+ ngaySinh);
-            System.out.println("Giới tính: "+ gioiTinh);
-            System.out.println("Địa chỉ: "+ diaChi);
-            System.out.println("Ngành học: "+ nganhHoc);
+            System.out.println("Họ và tên: " + hoVaTen);
+            System.out.println("Ngày sinh: " + ngaySinh);
+            System.out.println("Giới tính: " + gioiTinh);
+            System.out.println("Địa chỉ: " + diaChi);
+            System.out.println("Ngành học: " + nganhHoc);
             System.out.println("Môn học yêu thích: ");
             for (String monHoc : lstMonHoc) {
-                System.out.println(monHoc+" ");
+                System.out.println(monHoc + " ");
             }
             this.dispose();
         } else if (JOptionPane.NO_OPTION == choice) {
@@ -234,7 +242,7 @@ public class FormDangKy extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Bạn đã hủy đăng ký", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_btnDangKyActionPerformed
 
     /**
